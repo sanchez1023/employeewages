@@ -1,33 +1,36 @@
-
-#!/bin/bash -x
-IS_PART_TIME=1;
-IS_FULL_TIME=2;
-wagesperhour=10
-numberOfWorkingDays=30
+#! /bin/bash -x
 salary=0
-day=1
-while [ $day -lt $numberOfWorkingDays ]
-        do
-                randomCheck=$((RANDOM % 3))
+IS_PART_TIME=1
+IS_FULL_TIME=2
+WAGES_PER_HOURS=10
+NUM_WORKING_DAYS=40
+MAX_HOURS_IN_MONTH=80
+DAY=1
+EMP_RATE_PER_HOUR=40
+totalWorkHours=0
+totalWorkDays=0
 
-        echo day:$day
-        case $randomCheck in
-                        $IS_PART_TIME)     
-                               employeehours=4
-                               echo employee is partime;;
-                        $IS_FULL_TIME)
-                               employeehours=8
-                               echo employee is present;;
+function  getWorkingHours(){
+   case $1 in 
+      $IS_FULL_TIME)
+         workHours=8;;
+      $IS_PART_TIME)
+         workHours=4;;
+      *)
+         workHours=0;;
+   esac
+   echo $workHours
+}
 
-                                *)
-                               echo employe is absent
-                               employeehours=0;;
-        esac
+while [[ $totalWorkHours -lt $MAX_HOURS_IN_MONTH && $totalWorkDays -lt $NUM_WORKING_DAYS ]]
+do
+   ((totalWorkDays++))
+   workHours="$( getWorkingHours $((RANDOM%3)) )"
+   totalWorkHours=$(( $totalWorkHours+$workHours ))
 
 
-                  salary=$(($salary + $(( $wagesperhour*$employeehours))))
-                                        #salary+= $(($wagesperhour*$employeehours))
-                  echo  salary is :$salary
-                  day=$(($day+1))
+done 
+totalSalary=$(( $totalWorkHours*$EMP_RATE_PER_HOUR ))
 
-done
+
+
