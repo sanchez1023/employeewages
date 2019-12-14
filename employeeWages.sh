@@ -1,20 +1,25 @@
-#! /bin/bash -x
+#!/bin/bash -x
 
-echo "employee wages"
-        
-        IS_FULL_TIME=1
-        
-        randomCheck=$((RANDOM % 3))
-       
-                if [ $IS_FULL_TIME -eq $randomCheck ]
-                then
+  salary=0
+   IS_PART_TIME=1;
+	IS_FULL_TIME=2;
+   wagesperhour=10
+   randomCheck=$((RANDOM % 3))
+   if [ $IS_PART_TIME -eq $randomCheck  ]
+      then 
+         employeehours=4
 
-                        
-                        echo employee is present
-                else
-                        echo employe is absent
-                        
+         echo employee is partime
+      elif [ $IS_FULL_TIME -eq $randomCheck ]
+      then
+   
+         employeehours=8
+         echo employee is present
+      else
+         echo employe is absent
+         employeehours=0
 
-                 fi
-                        
+   fi
+         salary=$(( $wagesperhour*$employeehours))
+         echo $salary
 
