@@ -2,21 +2,31 @@
 IS_PART_TIME=1;
 IS_FULL_TIME=2;
 wagesperhour=10
-randomCheck=$((RANDOM % 3))
-               case $randomCheck in
-                   $IS_PART_TIME)     
-                         employeehours=4
-                         echo employee is partime;;
-                    $IS_FULL_TIME)
-                          employeehours=8
-                          echo employee is present;;
+numberOfWorkingDays=30
+salary=0
 
-                                *)
-                           echo employe is absent
-                           employeehours=0;;
-                esac
+	for ((day=1; day<=$numberOfWorkingDays; day++))
+   	do
+      	randomCheck=$((RANDOM % 3))
+   
+   		echo day:$day
+  			 case $randomCheck in
+                  $IS_PART_TIME)    
+                     employeehours=4
+                     echo employee is partime;;
+                  $IS_FULL_TIME)
+                     employeehours=8
+                     echo employee is present;;
 
+                  *)
+                     echo employe is absent
+                     employeehours=0;;
+         esac
 
-                     salary=$(( $wagesperhour*$employeehours))
-                      echo $salary
+   
+               salary=$(($salary + $(( $wagesperhour*$employeehours))))
+               #salary+= $(($wagesperhour*$employeehours))
+               echo  salary is :$salary
+done 
+
 
